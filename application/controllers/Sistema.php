@@ -48,7 +48,7 @@ class Sistema extends CI_Controller{
         $this->form_validation->set_rules('sistema_numero', 'Número', 'trim|required|min_length[2]|max_length[30]');
         $this->form_validation->set_rules('sistema_cidade', 'Cidade', 'trim|required|min_length[4]|max_length[50]');
         $this->form_validation->set_rules('sistema_estado', 'UF', 'trim|required|min_length[2]|max_length[50]');
-        $this->form_validation->set_rules('sistema_site_url', 'URL do site', 'trim|required|mas_length[100]');
+        $this->form_validation->set_rules('sistema_site_url', 'URL do site', 'trim|required|max_length[100]');
         $this->form_validation->set_rules('sistema_email', 'Email de contato', 'trim|required|valid_email|max_length[100]');
         $this->form_validation->set_rules('sistema_text_ticket', 'texto do ticket de estacionamento', 'trim|max_length[500]');
         
