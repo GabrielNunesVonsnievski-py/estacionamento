@@ -165,20 +165,22 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="">Forma de pagamento</label>
 
-                                            <select class="form-control" name="estacionar_forma_pagamento_id"  <?php echo (isset($estacionado) && $estacionado->estacionar_status == 1 ? 'disabled' : '') ?>>
+                                            <?php 
+                                            $tempo_decorrido_minutos = ($diff->h * 60) + $diff->i; // Converter horas para minutos e somar
+                                            ?>
+
+                                            <select class="form-control" name="estacionar_forma_pagamento_id" <?php echo (isset($estacionado) && $estacionado->estacionar_status == 1 ? 'disabled' : '') ?>>
                                                 <option value="">Escolha...</option>
 
-                                                <?php foreach ($formas_pagamentos as $forma): ?>
-
-                                                    <?php if ($estacionado): ?>
-
-                                                        <option value="<?php echo $forma->forma_pagamento_id; ?>" <?php echo ($forma->forma_pagamento_id == $estacionado->estacionar_forma_pagamento_id ? 'selected' : '' ) ?> "><?php echo $forma->forma_pagamento_nome; ?></option>
-
-
-                                                    <?php endif; ?>
-
-                                                <?php endforeach; ?>
-
+                                                <?php if ($tempo_decorrido_minutos < 15): ?>
+                                                    <option value="4">Gratuito</option>
+                                                <?php else: ?>
+                                                    <?php foreach ($formas_pagamentos as $forma): ?>
+                                                        <option value="<?php echo $forma->forma_pagamento_id; ?>" <?php echo (isset($estacionado) && $forma->forma_pagamento_id == $estacionado->estacionar_forma_pagamento_id ? 'selected' : '' ) ?>>
+                                                            <?php echo $forma->forma_pagamento_nome; ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
                                             </select>
                                             <?php echo form_error('estacionar_forma_pagamento_id', '<div class="text-danger">', '</div>') ?>
 
@@ -186,7 +188,6 @@
 
                                     </div>
                                 <?php endif; ?>
-
 
                                 <div class="">
                                     <?php if (isset($estacionado)): ?>
